@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-buttons {
+    display: flex;
+}
+
+.nav-buttons button {
+    margin-left: 10px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.schedule-container {
+    background-color: #ddd;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.schedule-buttons {
+    text-align: left;
+}
+
+.schedule-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#myDogs {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#dogButtons {
+    margin-top: 10px;
+}
+
+#dogButtons button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
