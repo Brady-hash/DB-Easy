@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS easy_db;
+
+CREATE DATABASE easy_db;
