@@ -71,22 +71,31 @@ h2 {
 
 .dogButton {
     margin: 10px;
-    padding: 10px;
+    padding: 20px; /* Increased button size */
     border: none;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .dogImage {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 10px; /* Rounded border */
+    object-fit: cover; /* Make the image cover the container while maintaining aspect ratio */
     margin-right: 10px;
 }
 
 .deleteIcon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
     color: red; /* Color of the delete icon */
     cursor: pointer;
+}
+
+.dogName {
+    font-size: 1.2em; /* Adjust font size of dog's name */
 }
