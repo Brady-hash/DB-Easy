@@ -8,10 +8,7 @@ router.get('/', async (req, res) => {
         const userData = await User.findAll({
             include: [
                 {
-                    model: Dog,
-                },
-                {
-                    model: Event,
+                    model: User,
                 }
             ],
         });
@@ -22,3 +19,5 @@ router.get('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+module.exports = router;

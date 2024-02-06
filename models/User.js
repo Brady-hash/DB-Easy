@@ -40,26 +40,24 @@ User.init(
             },
         },
         phone: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT, //BIGINT for larger numbers
             allowNull: false,
             validate: {
-                max: [11]
+                len: [10, 11]
             },
         },
     },
     {
-        hooks: {
-            beforeCreate: async (newUserPw) => {
-                newUser.password = await bcrypt.hash(newUser.password, 10);
-                return newUserPw;
-            },
-        },
-    },
-    {    
+        // hooks: {
+        //     beforeCreate: async (newUserPw) => {
+        //         newUser.password = await bcrypt.hash(newUser.password, 10);
+        //         return newUserPw;
+        //     },
+        // },   
         sequelize,
         timestamps: false,
         freezeTableName: true,
-        underscore: true,
+        underscored: true,
         modelName: 'user',
     }
 );
