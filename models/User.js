@@ -54,6 +54,8 @@ User.init(
                 return newUserPw;
             },
         },
+    },
+    {    
         sequelize,
         timestamps: false,
         freezeTableName: true,

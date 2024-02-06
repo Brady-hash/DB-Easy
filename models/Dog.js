@@ -36,7 +36,7 @@ Dog.init(
             allowNull: false
         },
         vaccinations: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         address: {
@@ -50,6 +50,8 @@ Dog.init(
                 key: 'id',
             },
         },
+    },
+    {
         sequelize,
         timestamps: false,
         freezeTableName: true,
