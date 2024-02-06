@@ -15,11 +15,17 @@ const seedDatabase = async () => {
     });
 
     // Bulk create dogs
-    await Dog.bulkCreate(dogData);
+    await Dog.bulkCreate(dogData, {
+        individualHooks: true,
+        returning: true,
+    });
 
     // Bulk create events
 
-    await Event.bulkCreate(eventData);
+    await Event.bulkCreate(eventData, {
+        individualHooks: true,
+        returning: true,
+    });
 
     console.log('Database seeded!');
     process.exit(0);
