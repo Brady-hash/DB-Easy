@@ -1,0 +1,101 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #868686;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px; /* Rounded border for the nav bar */
+    margin: 10px; /* Added margin for white space */
+}
+
+nav h1 {
+    margin: 0;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.main-button {
+    background-color: #d9d9d9;
+    padding: 20px; /* Increased button size */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.add-dog-button {
+    background-color: #d9d9d9;
+    padding: 30px; /* Increased button size */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto; /* Center the button */
+    position: relative;
+}
+
+.delete-icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: red; /* Color of the delete icon */
+    cursor: pointer;
+}
+
+#dogContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dogButton {
+    margin: 10px;
+    padding: 20px; /* Increased button size */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.dogImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px; /* Rounded border */
+    object-fit: cover; /* Make the image cover the container while maintaining aspect ratio */
+    margin-right: 10px;
+}
+
+.deleteIcon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: red; /* Color of the delete icon */
+    cursor: pointer;
+}
+
+.dogName {
+    font-size: 1.2em; /* Adjust font size of dog's name */
+}
