@@ -1,0 +1,178 @@
+[
+    {
+        "name": "Levi",
+        "breed": "Husky",
+        "age": "9",
+        "weight": "70",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "1"
+
+    },
+    {
+        "name": "Goose",
+        "breed": "German Shepard",
+        "age": "5",
+        "weight": "125",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "2"
+
+    },
+    {
+        "name": "Butter",
+        "breed": "Golden retreiver",
+        "age": "2",
+        "weight": "60",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "3"
+
+    },
+    {
+        "name": "Mark",
+        "breed": "Lab",
+        "age": "5",
+        "weight": "80",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "4"
+
+    },
+    {
+        "name": "Lola",
+        "breed": "",
+        "age": "3",
+        "weight": "",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "5"
+
+    },
+    {
+        "name": "Ninja",
+        "breed": "",
+        "age": "6",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "6"
+
+    },
+    {
+        "name": "Doge",
+        "breed": "",
+        "age": "7",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "7"
+
+    },
+    {
+        "name": "Billy",
+        "breed": "",
+        "age": "8",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "8"
+
+    },
+    {
+        "name": "Ruca",
+        "breed": "",
+        "age": "6",
+        "weight": "",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "9"
+
+    },
+    {
+        "name": "Betty",
+        "breed": "",
+        "age": "4",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "10"
+
+    },
+    {
+        "name": "Bobby",
+        "breed": "",
+        "age": "6",
+        "weight": "",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "2"
+
+    },
+    {
+        "name": "Bruno",
+        "breed": "",
+        "age": "7",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "1"
+
+    },
+    {
+        "name": "Wilma",
+        "breed": "",
+        "age": "10",
+        "weight": "",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "3"
+
+    },
+    {
+        "name": "Taylor",
+        "breed": "",
+        "age": "6",
+        "weight": "",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "4"
+
+    },
+    {
+        "name": "Texas",
+        "breed": "",
+        "age": "",
+        "weight": "7",
+        "spay_neuter": "True",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "5"
+
+    },
+    {
+        "name": "Bean",
+        "breed": "",
+        "age": "3",
+        "weight": "",
+        "spay_neuter": "False",
+        "vaccinations": "",
+        "address": "1232 Vanderbilt rd",
+        "user_id": "6"
+
+    }
+]
