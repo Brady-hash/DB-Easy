@@ -58,4 +58,10 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+//Route to handle 
+router.get('/doginfo', (req, res) => {
+    res.render('info');
+});
+
+
 module.exports = router;
