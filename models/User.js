@@ -46,14 +46,28 @@ User.init(
                 len: [10, 11]
             },
         },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'user',
+            validate: {
+                isIn: [['admin', 'user']],
+            }
+        }
     },
     {
-        // hooks: {
-        //     beforeCreate: async (newUserPw) => {
-        //         newUser.password = await bcrypt.hash(newUser.password, 10);
-        //         return newUserPw;
-        //     },
-        // },   
+        hooks: {
+            // beforeCreate: async (newUserData) => {
+            //     newUserData.password = await bcrypt.hash(newUserData.password, 10);
+            //     return newUserData;
+            // },
+            // beforeUpdate: async (updatedUserData) => {
+            //     if (updatedUserData.changed('password')) {
+            //         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+            //     }
+            //     return updatedUserData;
+            // },
+        },   
         sequelize,
         timestamps: false,
         freezeTableName: true,
