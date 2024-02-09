@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Dog, Event, Admin } = require('../models');
+const { User, Dog, Event } = require('../models');
 const withAuth = require('../utils/auth');
 
 // Middleware to redirect based on user role
