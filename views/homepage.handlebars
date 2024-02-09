@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +10,7 @@
     <nav>
         <h1>Client Dash</h1>
         <div>
-            <button class="main-button">Welcome {{clientName}}</button>
+            <button class="main-button">Welcome {{user.first_name}}</button>
             <button class="main-button">Log Out</button>
         </div>
     </nav>
@@ -28,14 +25,12 @@
         </div>
 
         <h2>My Dogs</h2>
-
+        {{#each user.dog as |dog|}}
+       <p>{{dog.name}}</p>
+       {{/each}}
         <button id="addDogButton" class="add-dog-button">Add new dog</button>
 
         <div id="dogContainer"></div>
     </div>
 
     <script src="./public/js/homepage.js"></script>
-
-</body>
-
-</html>
