@@ -1,0 +1,40 @@
+<div>
+  <div class="logo-placeholder">DB EZ Logo</div>
+  
+  <div class="container">
+    <h2>Signup</h2>
+
+    <div class="input-group">
+      <label for="firstname">First Name:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="input-group">
+      <label for="lastname">Last Name:</label>
+      <input type="email" id="lastname" name="lastname" required>
+    </div>
+
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+  <div class="input-group">
+      <label for="role">Role:</label>
+      <input type="role" id="role" name="role" required>
+      {{#each user.role}}
+    <option value="{{user.role}}">{{user.admin}}</option>
+    <option value="{{user.role}}">{{user.user}}</option>
+    {{/each}}
+     </div>
+
+    <div class="input-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div> 
+
+    <div class="button-group">
+      <button class="signup-button" type="submit">Sign Up</button>
+    </div>
+  </div>
+</div>
