@@ -118,7 +118,6 @@ router.get('/events', withAuth, async (req, res) => {
     }
 });
 
-//Route for user info ()
 // Admin homepage route
 router.get('/admin', withAuth, async (req, res) => {
     if (req.session.userType === 'admin') {
