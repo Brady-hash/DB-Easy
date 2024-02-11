@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const { Dog } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-router.post('/info', async (req, res) => {
+
+router.post('/info', withAuth, async (req, res) => {
     const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
 
     // Validate the input fields
