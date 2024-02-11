@@ -1,7 +1,7 @@
 const User = require('./User');
 const Dog = require('./Dog');
 const Event = require('./Event')
-const Admin = require('./Admin')
+// const Admin = require('./Admin')
 
 User.hasMany(Dog, {
     foreignKey: 'user_id',
