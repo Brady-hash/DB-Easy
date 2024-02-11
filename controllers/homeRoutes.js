@@ -105,20 +105,14 @@ router.get('/events', withAuth, async (req, res) => {
 
 // Admin homepage route
 router.get('/admin', withAuth, redirectBasedOnUserRole, async (req, res) => {
-    if (req.session.userType === 'admin') {
         try {
-            const dogsEventsData = await User.findAll({
+            const users = await User.findAll({
                 include: [{ model: Dog, include: [Event] }],
             });
-            const data = dogsEventsData.map(user => user.get({ plain: true }));
-            res.render('admin', { data });
+            res.render('admin', { users });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Error fetching data for admin' });
-        }
-    } else {
-        // if not admin route to login or homepage
-        res.redirect('/');
+            res.status(500).json({ message: 'Error fetching data' });
     }
 });
 
