@@ -25,15 +25,6 @@
     {{/if}}
     <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
-        <h1>
-
-        </h1>
-        <nav>
-            {{#if logged_in}}
-            <a href="/profile">Profile</a>
-            <button class="no-button" id="logout">Logout</button>
-            {{/if}}
-            </nav>
     </header>
     <main class="container container-fluid mt-5">
             {{{body}}}
@@ -44,6 +35,8 @@
     </div>
     {{#if logged_in}}
     <script src="/js/logout.js"></script>
+    <script src="./public/js/Schedule.js"></script>
     {{/if}}
+  
 </body>
 </html>

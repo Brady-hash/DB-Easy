@@ -4,19 +4,27 @@ const withAuth = require('../utils/auth');
 const bcrypt = require('bcrypt');
 
 // Middleware to redirect based on user role
-const redirectBasedOnUserRole = (req, res, next) => {
-    if (req.session.loggedIn) {
-        switch (req.session.userRole) {
-            case 'admin':
-                res.redirect('/admin');
-                break;
-            case 'user':
-
-                next();
-                break;
-            default:
-                res.status(403).json({ message: 'Unauthorized access.' });
-                break;
+const redirectBasedOnUserRole = async (req, res, next) => {
+    if (req.session.logged_in) {
+        try {
+            const user = await User.findByPk(req.session.id);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            switch (user.role) {
+                case 'admin':
+                    res.redirect('/admin');
+                    break;
+                case 'user':
+                    next();
+                    break;
+                default:
+                    res.status(403).json({ message: 'Unauthorized access.' });
+                    break;
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            res.status(500).json({ message: 'Error fetching user' });
         }
     } else {
         res.redirect('/login');
@@ -69,7 +77,7 @@ router.post('/logout', (req, res) => {
 //Route sign up page
 router.get('/signup', (req, res) => {
     // If the user is already logged in, redirect based on their role
-    if (req.session.loggedIn) {
+    if (req.session.logged_in) {
         redirectBasedOnUserType(req, res, () => { });
     } else {
         res.render('signup');
@@ -102,7 +110,7 @@ router.post('/signup', async (req, res) => {
   });
 
 // Route to display user homepage or redirect to login if not authenticated
-router.get('/', async (req, res) => {
+router.get('/', redirectBasedOnUserRole, async (req, res) => {
     try {
         console.log(req.session);
         if (req.session.logged_in) {
@@ -127,7 +135,7 @@ router.get('/', async (req, res) => {
 //Route dog info 
 router.get('/doginfo', withAuth, async (req, res) => {
     try {
-        if (req.session.loggedIn && req.session.userRole === 'user') {
+        if (req.session.logged_in && req.session.userRole === 'user') {
             const userDogsData = await Dog.findAll({
                 where: { userId: req.session.user_id },
                 include: [Event]
@@ -154,7 +162,7 @@ router.get('/newdog', (req, res) => {
 // Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
     try {
-        if (req.session.logged_in && req.session.userType === 'user') {
+        if (req.session.logged_in && req.session.userRole === 'user') {
             res.render('/schedule');
         } else {
             res.redirect('/login');
