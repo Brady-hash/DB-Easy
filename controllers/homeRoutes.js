@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Dog, Event } = require('../models');
 const withAuth = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 // Middleware to redirect based on user role
 const redirectBasedOnUserRole = (req, res, next) => {
@@ -24,43 +25,98 @@ const redirectBasedOnUserRole = (req, res, next) => {
 
 // Route login page
 router.get('/login', (req, res) => {
-    // If the user is already logged in, redirect based on their role
-    if (req.session.loggedIn) {
-        redirectBasedOnUserRole(req, res, () => {});
-    } else {
-        res.render('login');
-    }
+    res.render('login');
 });
 
+router.post('/login', async (req, res) => {
+    try {
+        const userData = await User.findOne({ where: { email: req.body.email } });
+
+        if (!userData) {
+            res
+                .status(400)
+                .json({ message: 'Wrong Email' });
+            return;
+        }
+
+        const validPassword = await userData.checkPassword(req.body.password);
+
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({ message: 'Wrong Password' });
+            return;
+        }
+
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
+        res.redirect('/')
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+// logout
+router.post('/logout', (req, res) => {
+    if (req.session.logged_in) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+        res.redirect('/login');
+    } else {
+        res.status(404).end();
+    }
+});
 //Route sign up page
 router.get('/signup', (req, res) => {
     // If the user is already logged in, redirect based on their role
     if (req.session.loggedIn) {
-        redirectBasedOnUserType(req, res, () => {});
+        redirectBasedOnUserType(req, res, () => { });
     } else {
         res.render('signup');
     }
 });
 
-// Route to display user homepage or redirect to login if not authenticated
-router.get('/', withAuth, redirectBasedOnUserRole, async (req, res) => {
+router.post('/signup', async (req, res) => {
+    const { first_name, last_name, email, password, phone, role } = req.body;
+  
+  
     try {
-        if (req.session.userType === 'user') {
-            // Fetch logged-in user's data with their Dogs and Events
+        // Hash password before saving to the database
+        const hashedPassword = await bcrypt.hash(password);
+  
+        // Create new user
+        const newUser = await User.create({
+            first_name,
+            last_name,
+            email,
+            password: hashedPassword,
+            phone,
+            role,
+  
+        });
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Signup error:', error);
+        res.status(500).json({ error: 'Error! Please try again.' });
+    }
+  });
+
+// Route to display user homepage or redirect to login if not authenticated
+router.get('/', async (req, res) => {
+    try {
+        console.log(req.session);
+        if (req.session.logged_in) {
             const userData = await User.findByPk(req.session.user_id, {
                 include: [{ model: Dog, include: [Event] }]
             });
-
             if (userData) {
                 // Serialize data for the template
                 const user = userData.get({ plain: true });
+                console.log(user);
                 res.render('homepage', { user });
-            } else {
-                // If userData is null, possibly log out the user
-                req.session.destroy(() => {
-                    res.redirect('/login');
-                });
             }
+        } else {
+            res.redirect('/login');
         }
     } catch (err) {
         console.error(err);
@@ -73,7 +129,7 @@ router.get('/doginfo', withAuth, async (req, res) => {
     try {
         if (req.session.loggedIn && req.session.userRole === 'user') {
             const userDogsData = await Dog.findAll({
-                where: { userId: req.session.user_id},
+                where: { userId: req.session.user_id },
                 include: [Event]
             });
 
@@ -88,6 +144,12 @@ router.get('/doginfo', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+router.get('/newdog', (req, res) => {
+    res.render('info')
+}
+)
+
 
 // Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
@@ -113,6 +175,34 @@ router.get('/admin', withAuth, redirectBasedOnUserRole, async (req, res) => {
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Error fetching data' });
+    }
+});
+
+router.post('/info', async (req, res) => {
+    const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
+    // Validate the input fields
+   
+    try {
+        // Create a new dog
+         await Dog.create({
+            name,
+            breed,
+            sex,
+            age,
+            weight,
+            spay_neuter,
+            vaccinations,
+            address,
+            user_id: req.session.user_id
+        });
+
+        // send new dogs data
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error creating new dog:', error);
+
+        // Handle errors
+        res.status(500).json({ error: 'An error occurred while creating the dog. Please try again.' });
     }
 });
 

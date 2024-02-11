@@ -1,4 +1,5 @@
 <h2><center>Scheduling</center></h2>
+<form action="'/events" method="post">
 <div class="container">
     <div id="calendar"></div>
 
@@ -19,15 +20,17 @@
                         <div class="form-group">
                             <label for="eventTitle">Event Title:</label>
                             
-                            <select class="form-control" id="eventTitle">
+                            <select class="form-control" id="eventTitle" required>
                                 <option value="Boarding">Boarding</option>
                                 <option value="Daycare">Daycare</option>
                                 <option value="Training">Training</option>
                             </select>
                         </div>
                         <div class="form-group">
+                            <select class="form-control" id="eventDate" required>
                             <label for="eventDate">Date:</label>
                             <input type="date" class="form-control" id="eventDate">
+                            </select>
                         </div>
                         <button type="button" class="btn btn-primary" id="submitButton">Add Event</button>
                     </form>
@@ -36,6 +39,7 @@
         </div>
     </div>
 </div>
+</form>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
