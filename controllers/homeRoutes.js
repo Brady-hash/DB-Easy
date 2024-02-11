@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Dog, Event } = require('../models');
 const withAuth = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 // Middleware to redirect based on user role
 const redirectBasedOnUserRole = (req, res, next) => {
@@ -72,6 +73,31 @@ router.get('/signup', (req, res) => {
         res.render('signup');
     }
 });
+
+router.post('/signup', async (req, res) => {
+    const { first_name, last_name, email, password, phone, role } = req.body;
+  
+  
+    try {
+        // Hash password before saving to the database
+        const hashedPassword = await bcrypt.hash(password);
+  
+        // Create new user
+        const newUser = await User.create({
+            first_name,
+            last_name,
+            email,
+            password: hashedPassword,
+            phone,
+            role,
+  
+        });
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Signup error:', error);
+        res.status(500).json({ error: 'Error! Please try again.' });
+    }
+  });
 
 // Route to display user homepage or redirect to login if not authenticated
 router.get('/', async (req, res) => {
