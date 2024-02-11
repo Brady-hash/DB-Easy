@@ -71,10 +71,24 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// Add event listener for the modal close button
+
 document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.querySelector('.close-button');
     if (closeButton) {
         closeButton.addEventListener('click', closeModal);
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.user-name, .dog-name, .event-name').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const type = link.classList.contains('user-name') ? 'user' :
+                         link.classList.contains('dog-name') ? 'dog' :
+                         link.classList.contains('event-name') ? 'event' : 
+                         null;
+            const id = link.dataset[type + '.id'];
+            detailsModals(type, id);
+        });
+    });
 });
