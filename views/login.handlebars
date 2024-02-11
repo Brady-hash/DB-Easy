@@ -1,23 +1,54 @@
-<div>
-  <div class="logo-placeholder">DB EZ Logo</div>
-  
+<<<<<<< HEAD
+<div class="logo-placeholder">{{ dynamicData.logoText }}</div>
   <div class="container">
     <h2>Login</h2>
-
-    <div class="input-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-    </div>
-
-    <div class="input-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-
-    <div class="button-group">
-      <button class="signup-button" type="submit">Sign Up</button>
-      <span class="or">or</span>
-      <button class="signup-button login-button" type="submit">Login</button>
-    </div>
+    <form method="post" action="/login"> <!-- Specify your login route -->
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="button-group">
+        <button class="signup-button" type="submit">Sign Up</button>
+        <span class="or">or</span>
+        <button class="signup-button login-button" type="submit">Login</button>
+      </div>
+    </form>
   </div>
+  
+
+
+
+
+=======
+<div>
+<div class="logo-placeholder">DB EZ Logo</div>
+
+<div class="container">
+    <h2>Login</h2>
+
+    <form class="login-form">
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="button-group">
+            <button class="login-button" type="submit">Login</button>
+        </div>
+    </form>
+
+    <div class="signup-link">
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
 </div>
+</div>
+>>>>>>> 06a52f4e249498c55d52a696fc0ed206f1f0d55a
