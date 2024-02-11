@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { User, Dog, Event } = require('../models');
-const withAuth = require('../utils/auth');
-const adminAuth = require('../utils/adminAuth');
+const { User, Dog, Event } = require('../../models');
+const withAuth = require('../../utils/auth');
+const adminAuth = require('../../utils/adminAuth');
 
 // Fetch user details by ID (Admin)
 router.get('/users/:id', [withAuth, adminAuth], async (req, res) => {
@@ -44,3 +44,5 @@ router.get('/events/:id', [withAuth, adminAuth], async (req, res) => {
         res.status(500).json({ message: 'Error fetching event details' });
     }
 });
+
+module.exports = router;

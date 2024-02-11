@@ -5,3 +5,5 @@ const adminAuth = (req, res, next) => {
         res.status(400).json({ message: 'Page not found.' });
     }
 };
+
+module.exports = adminAuth;
