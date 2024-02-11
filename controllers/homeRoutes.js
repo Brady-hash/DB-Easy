@@ -154,7 +154,7 @@ router.get('/newdog', (req, res) => {
 // Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
     try {
-        if (req.session.loggedIn && req.session.userType === 'user') {
+        if (req.session.logged_in && req.session.userType === 'user') {
             res.render('/schedule');
         } else {
             res.redirect('/login');
@@ -178,32 +178,32 @@ router.get('/admin', withAuth, redirectBasedOnUserRole, async (req, res) => {
     }
 });
 
-router.post('/info', async (req, res) => {
-    const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
-    // Validate the input fields
+// router.post('/info', async (req, res) => {
+//     const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
+//     // Validate the input fields
    
-    try {
-        // Create a new dog
-         await Dog.create({
-            name,
-            breed,
-            sex,
-            age,
-            weight,
-            spay_neuter,
-            vaccinations,
-            address,
-            user_id: req.session.user_id
-        });
+//     try {
+//         // Create a new dog
+//          await Dog.create({
+//             name,
+//             breed,
+//             sex,
+//             age,
+//             weight,
+//             spay_neuter,
+//             vaccinations,
+//             address,
+//             user_id: req.session.user_id
+//         });
 
-        // send new dogs data
-        res.redirect('/');
-    } catch (error) {
-        console.error('Error creating new dog:', error);
+//         // send new dogs data
+//         res.redirect('/');
+//     } catch (error) {
+//         console.error('Error creating new dog:', error);
 
-        // Handle errors
-        res.status(500).json({ error: 'An error occurred while creating the dog. Please try again.' });
-    }
-});
+//         // Handle errors
+//         res.status(500).json({ error: 'An error occurred while creating the dog. Please try again.' });
+//     }
+// });
 
 module.exports = router;
