@@ -52,5 +52,9 @@ router.get('/events/:id', withAuth, async (req, res) => {
     }
 });
 
+router.get('/events', (req, res) => {
+    res.render('schedule')
+}
+)
 
 module.exports = router;
