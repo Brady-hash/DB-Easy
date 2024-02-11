@@ -22,43 +22,73 @@ const redirectBasedOnUserRole = (req, res, next) => {
 
 // Route login page
 router.get('/login', (req, res) => {
-    // If the user is already logged in, redirect based on their role
-    if (req.session.loggedIn) {
-        redirectBasedOnUserType(req, res, () => {});
-    } else {
-        res.render('login');
-    }
+    res.render('login');
 });
 
+router.post('/login', async (req, res) => {
+    try {
+        const userData = await User.findOne({ where: { email: req.body.email } });
+
+        if (!userData) {
+            res
+                .status(400)
+                .json({ message: 'Wrong Email' });
+            return;
+        }
+
+        const validPassword = await userData.checkPassword(req.body.password);
+
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({ message: 'Wrong Password' });
+            return;
+        }
+
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
+        res.redirect('/')
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+// logout
+router.post('/logout', (req, res) => {
+    if (req.session.logged_in) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+        res.redirect('/login');
+    } else {
+        res.status(404).end();
+    }
+});
 //Route sign up page
 router.get('/signup', (req, res) => {
     // If the user is already logged in, redirect based on their role
     if (req.session.loggedIn) {
-        redirectBasedOnUserType(req, res, () => {});
+        redirectBasedOnUserType(req, res, () => { });
     } else {
         res.render('signup');
     }
 });
 
 // Route to display user homepage or redirect to login if not authenticated
-router.get('/', withAuth, redirectBasedOnUserRole, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        if (req.session.userType === 'user') {
-            // Fetch logged-in user's data with their Dogs and Events
+        console.log(req.session);
+        if (req.session.logged_in) {
             const userData = await User.findByPk(req.session.user_id, {
                 include: [{ model: Dog, include: [Event] }]
             });
-
             if (userData) {
                 // Serialize data for the template
                 const user = userData.get({ plain: true });
+                console.log(user);
                 res.render('homepage', { user });
-            } else {
-                // If userData is null, possibly log out the user
-                req.session.destroy(() => {
-                    res.redirect('/login');
-                });
             }
+        } else {
+            res.redirect('/login');
         }
     } catch (err) {
         console.error(err);
@@ -72,7 +102,7 @@ router.get('/doginfo', withAuth, async (req, res) => {
         if (req.session.loggedIn && req.session.userRole === 'user') {
             // Fetch logged-in user's dogs
             const userDogsData = await Dog.findAll({
-                where: { userId: req.session.user_id},
+                where: { userId: req.session.user_id },
                 include: [Event]
             });
 
@@ -88,6 +118,10 @@ router.get('/doginfo', withAuth, async (req, res) => {
     }
 });
 
+router.get('/newdog', (req, res) => {
+    res.render('info')
+}
+)
 // Route dog events (Admin)
 router.get('/events', withAuth, async (req, res) => {
     try {
@@ -97,7 +131,7 @@ router.get('/events', withAuth, async (req, res) => {
                 where: { userId: req.session.user_id },
                 include: [{
                     model: Event,
-                    required: true 
+                    required: true
                 }]
             });
 
@@ -106,7 +140,7 @@ router.get('/events', withAuth, async (req, res) => {
                 ...dog.get({ plain: true }),
                 events: dog.Events.map(event => event.get({ plain: true }))
             }));
-            
+
             // Render the events page with the fetched data
             res.render('events', { dogsEvents });
         } else {
@@ -137,5 +171,32 @@ router.get('/admin', withAuth, async (req, res) => {
     }
 });
 
+router.post('/info', async (req, res) => {
+    const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
+    // Validate the input fields
+   
+    try {
+        // Create a new dog
+         await Dog.create({
+            name,
+            breed,
+            sex,
+            age,
+            weight,
+            spay_neuter,
+            vaccinations,
+            address,
+            user_id: req.session.user_id
+        });
+
+        // send new dogs data
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error creating new dog:', error);
+
+        // Handle errors
+        res.status(500).json({ error: 'An error occurred while creating the dog. Please try again.' });
+    }
+});
 
 module.exports = router;
