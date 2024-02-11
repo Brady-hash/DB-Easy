@@ -5,17 +5,19 @@ const withAuth = require('../utils/auth');
 // Middleware to redirect based on user role
 const redirectBasedOnUserRole = (req, res, next) => {
     if (req.session.loggedIn) {
-        if (req.session.userRole === 'admin') {
-            // Redirect admin to the admin homepage
-            res.redirect('/admin');
-        } else if (req.session.userRole === 'user') {
-            // Proceed to the route user
-            next();
-        } else {
-            res.status(403).send('Unauthorized access.');
+        switch (req.session.userRole) {
+            case 'admin':
+                res.redirect('/admin');
+                break;
+            case 'user':
+
+                next();
+                break;
+            default:
+                res.status(403).json({ message: 'Unauthorized access.' });
+                break;
         }
     } else {
-        // Not logged in, redirect to login page
         res.redirect('/login');
     }
 };
@@ -24,7 +26,7 @@ const redirectBasedOnUserRole = (req, res, next) => {
 router.get('/login', (req, res) => {
     // If the user is already logged in, redirect based on their role
     if (req.session.loggedIn) {
-        redirectBasedOnUserType(req, res, () => {});
+        redirectBasedOnUserRole(req, res, () => {});
     } else {
         res.render('login');
     }
@@ -66,11 +68,10 @@ router.get('/', withAuth, redirectBasedOnUserRole, async (req, res) => {
     }
 });
 
-//Route dog info (Admin)
+//Route dog info 
 router.get('/doginfo', withAuth, async (req, res) => {
     try {
         if (req.session.loggedIn && req.session.userRole === 'user') {
-            // Fetch logged-in user's dogs
             const userDogsData = await Dog.findAll({
                 where: { userId: req.session.user_id},
                 include: [Event]
@@ -78,7 +79,7 @@ router.get('/doginfo', withAuth, async (req, res) => {
 
             // Serialize data for the template
             const dogs = userDogsData.map(dog => dog.get({ plain: true }));
-            res.render('doginfo', { dogs });
+            res.render('info', { dogs });
         } else {
             res.redirect('/login');
         }
@@ -88,38 +89,22 @@ router.get('/doginfo', withAuth, async (req, res) => {
     }
 });
 
-// Route dog events (Admin)
+// Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
     try {
         if (req.session.loggedIn && req.session.userType === 'user') {
-            // Fetch loggedin users dogs and their events
-            const userDogsEventsData = await Dog.findAll({
-                where: { userId: req.session.user_id },
-                include: [{
-                    model: Event,
-                    required: true 
-                }]
-            });
-
-            // Serialize data for the template
-            const dogsEvents = userDogsEventsData.map(dog => ({
-                ...dog.get({ plain: true }),
-                events: dog.Events.map(event => event.get({ plain: true }))
-            }));
-            
-            // Render the events page with the fetched data
-            res.render('events', { dogsEvents });
+            res.render('/schedule');
         } else {
             res.redirect('/login');
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Error rendering the schedule page.' });
     }
 });
 
 // Admin homepage route
-router.get('/admin', withAuth, async (req, res) => {
+router.get('/admin', withAuth, redirectBasedOnUserRole, async (req, res) => {
     if (req.session.userType === 'admin') {
         try {
             const dogsEventsData = await User.findAll({
@@ -136,6 +121,5 @@ router.get('/admin', withAuth, async (req, res) => {
         res.redirect('/');
     }
 });
-
 
 module.exports = router;
