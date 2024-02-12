@@ -4,6 +4,7 @@ const sequelize = require('../config/connection');
 
 class User extends Model {
     checkPassword(loginPW) {
+        console.log('Hash on DB', this.password)
         return bcrypt.compareSync(loginPW, this.password);
     }
 }
@@ -35,9 +36,6 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                max: [10]
-            },
         },
         phone: {
             type: DataTypes.BIGINT, //BIGINT for larger numbers
@@ -56,18 +54,6 @@ User.init(
         }
     },
     {
-        hooks: {
-            beforeCreate: async (newUserData) => {
-                newUserData.password = await bcrypt.hash(newUserData.password, 10);
-                return newUserData;
-            },
-            beforeUpdate: async (updatedUserData) => {
-                if (updatedUserData.changed('password')) {
-                    updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-                }
-                return updatedUserData;
-            },
-        },   
         sequelize,
         timestamps: false,
         freezeTableName: true,

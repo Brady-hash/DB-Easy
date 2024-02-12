@@ -1,39 +1,38 @@
-<div>
-<div class="logo-placeholder">DB EZ Logo</div>
+<div class="bg-[#D59F97] h-screen w-full flex flex-col justify-center items-center p-12">
+    <img src="https://www.shutterstock.com/image-vector/dog-logo-icon-design-vector-600nw-1459335044.jpg" alt="Logo"
+        class="rounded-full w-[100px] aspect-square bg-white" />
+    <div class="p-12 mt-12 bg-[#97CDD4] rounded-2xl max-w-[485px] w-full">
 
-<div class="container">
-    <h2>Sign Up</h2>
+        <form method="post" action="/signup" class="flex flex-col gap-5"> <!-- Specify your login route -->
+            <h1 class="text-center text-3xl font-bold mb-12">Signup</h1>
 
- <form class="signup-form" action="/signup" method="post">
-        <div class="input-group">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstname" required>
-        </div>
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="first_name"
+                id="first_name" name="first_name" placeholder="First Name" required>
 
-        <div class="input-group">
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastname" required>
-        </div>
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="last_name"
+                id="last_name" name="last_name" placeholder="Last Name" required>
 
-        <div class="input-group">
-            <label for="email-signup">Email:</label>
-            <input type="email" id="email-signup" name="email-signup" required>
-        </div>
-        <div class="input-group">
-                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                <select name="role" id="role" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="phone" id="phone"
+                name="phone" placeholder="Phone Number" required>
+
+            <select name="role" id="role"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl" required>
+                <option value="user">Client</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="email" id="email"
+                name="email" placeholder="Email" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="password"
+                id="password" name="password" placeholder="Password" minlength="8" required>
+
+            <div class="flex justify-between mt-10 items-center">
+                <button type="submit" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px]">Signup</button>
+                <span>or</span>
+                <a href="/login" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px] text-center">Login</a>
             </div>
-        <div class="input-group">
-            <label for="password-signup">Password:</label>
-            <input type="password" minlength="8" id="password-signup" name="password-signup" required>
-        </div>
 
-        <div class="button-group">
-            <button class="signup-button" type="submit">Sign Up</button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>
