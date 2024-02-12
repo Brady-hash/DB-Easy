@@ -6,5 +6,9 @@ module.exports = {
         return `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${
             new Date(date).getFullYear() + 5
         }`;
-    }, 
+    },
+    format_full_date: (date) => {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    },
 };

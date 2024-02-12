@@ -7,21 +7,16 @@ const bcrypt = require('bcrypt');
 const redirectBasedOnUserRole = async (req, res, next) => {
     if (req.session.logged_in) {
         try {
-            const user = await User.findByPk(req.session.id);
+            const user = await User.findByPk(req.session.user_id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            switch (user.role) {
-                case 'admin':
-                    res.redirect('/admin');
-                    break;
-                case 'user':
-                    next();
-                    break;
-                default:
-                    res.status(403).json({ message: 'Unauthorized access.' });
-                    break;
+            // Adjusting redirection logic for admin
+            if (req.session.user_role === 'admin') {
+                return res.redirect('/admin');
             }
+            // Proceed for users
+            next();
         } catch (error) {
             console.error('Error fetching user:', error);
             res.status(500).json({ message: 'Error fetching user' });
@@ -30,6 +25,7 @@ const redirectBasedOnUserRole = async (req, res, next) => {
         res.redirect('/login');
     }
 };
+
 
 // Route login page
 router.get('/login', (req, res) => {
@@ -55,7 +51,7 @@ router.post('/login', async (req, res) => {
                 .json({ message: 'Wrong Password' });
             return;
         }
-
+        req.session.user_role = userData.role;
         req.session.user_id = userData.id;
         req.session.logged_in = true;
         res.redirect('/')
@@ -67,13 +63,13 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
         req.session.destroy(() => {
-            res.status(204).end();
+            res.redirect('/login'); // Correctly redirect after session destruction
         });
-        res.redirect('/login');
     } else {
         res.status(404).end();
     }
 });
+
 //Route sign up page
 router.get('/signup', (req, res) => {
     // If the user is already logged in, redirect based on their role
@@ -114,7 +110,7 @@ router.get('/', redirectBasedOnUserRole, async (req, res) => {
     try {
         console.log(req.session);
         if (req.session.logged_in) {
-            const userData = await User.findByPk(req.session.user_id, {
+            const userData = await User.findByPk(req.session.user_id , {
                 include: [{ model: Dog, include: [Event] }]
             });
             if (userData) {
@@ -162,7 +158,7 @@ router.get('/newdog', (req, res) => {
 // Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
     try {
-        if (req.session.logged_in && req.session.userRole === 'user') {
+        if (req.session.logged_in && req.params.role === 'user') {
             res.render('/schedule');
         } else {
             res.redirect('/login');
@@ -174,44 +170,24 @@ router.get('/events', withAuth, async (req, res) => {
 });
 
 // Admin homepage route
-router.get('/admin', withAuth, redirectBasedOnUserRole, async (req, res) => {
+router.get('/admin', withAuth, async (req, res) => {
+    console.log(req.session);
+    if (req.session.user_role === 'admin') {
         try {
-            const users = await User.findAll({
-                include: [{ model: Dog, include: [Event] }],
+            const userData = await User.findAll({
+                include: [{ model: Dog, include: [Event] }]
             });
-            res.render('admin', { users });
-        } catch (error) {
-            console.error(error);
+
+            const users = userData.map(user => user.get({ plain: true }));
+            console.log(users);
+            res.render('admin', { users: users });
+        } catch (err) {
+            console.error(err);
             res.status(500).json({ message: 'Error fetching data' });
+        }
+    } else {
+        res.status(403).json({ message: 'Unauthorized access.' });
     }
 });
-
-// router.post('/info', async (req, res) => {
-//     const { name, breed, sex, age, weight, spay_neuter, vaccinations, address } = req.body;
-//     // Validate the input fields
-   
-//     try {
-//         // Create a new dog
-//          await Dog.create({
-//             name,
-//             breed,
-//             sex,
-//             age,
-//             weight,
-//             spay_neuter,
-//             vaccinations,
-//             address,
-//             user_id: req.session.user_id
-//         });
-
-//         // send new dogs data
-//         res.redirect('/');
-//     } catch (error) {
-//         console.error('Error creating new dog:', error);
-
-//         // Handle errors
-//         res.status(500).json({ error: 'An error occurred while creating the dog. Please try again.' });
-//     }
-// });
 
 module.exports = router;

@@ -1,94 +1,116 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Close modal event listener
+    const closeButton = document.querySelector('.close-button');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    // Attach click event listeners to each link
+    document.querySelectorAll('.user-name, .dog-name, .event-name').forEach(link => {
+        link.addEventListener('click', event => {
+            console.log('Link clicked', event.target);
+            event.preventDefault();
+            const type = link.classList.contains('user-name') ? 'user' :
+                         link.classList.contains('dog-name') ? 'dog' :
+                         link.classList.contains('event-name') ? 'event' : 
+                         null;
+            // Correctly extract the ID for the clicked entity
+            const id = link.dataset.userId || link.dataset.dogId || link.dataset.eventId;
+            detailsModals(type, id);
+        });
+    });
+});
 
 function detailsModals(type, id) {
     let url;
     switch (type) {
         case 'user':
-            url = `/api/user/${id}`;
+            url = `/api/admin/users/${id}`;
             break;
         case 'dog':
-            url = `/api/dog/${id}`;
+            url = `/api/admin/dogs/${id}`;
             break;
         case 'event':
-            url = `/api/event/${id}`;
+            url = `/api/admin/events/${id}`;
             break;
         default:
             console.error('Invalid type');
             return;
     }
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network Error');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const modal = document.getElementById('userModal');
-            const modalBody = modal.querySelector('.modal-body');
+    fetch(url, {
+        method: 'GET', // Explicitly stating the method, though 'GET' is default
+        headers: {
+            // 'Content-Type': 'application/json', // Generally not needed for GET, but here if your server checks for it
+            // Include other headers your API requires, e.g., Authorization for token-based auth
+        },
+        credentials: 'include', // Important for including cookies in cross-origin requests
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Network response was not ok, status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        const modal = document.getElementById('userModal');
+        const modalBody = modal.querySelector('.modal-body');
 
-            // Populate modal based on type
-            modalBody.innerHTML = generateModalContent(type, data);
+        // Populate modal based on type
+        modalBody.innerHTML = generateModalContent(type, data); // Ensure generateModalContent is properly defined to handle your data structure
 
-            // Show the modal
-            modal.style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Error fetching details:', error);
-            // Handle error display to the user
-        });
+        // Show the modal
+        modal.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error fetching details:', error);
+        // Optionally, update the modal or another element to display the error to the user
+        const modalBody = document.getElementById('userModal').querySelector('.modal-body');
+        modalBody.innerHTML = `<p>Error fetching details: ${error.message}</p>`; // Providing user feedback on error
+        document.getElementById('userModal').style.display = 'block'; // Show the modal even on error to display the error message
+    });
 }
+
 
 function generateModalContent(type, data) {
+    let htmlContent = '';
     switch (type) {
         case 'user':
-            return `<h4>User Details</h4>
-                    <p>First name: ${data.first_name}</p>
-                    <p>Last name: ${data.last_name}</p>
-                    <p>Email: ${data.email}</p>
-                    <p>Phone: ${data.phone}</p>`;
+            htmlContent = `
+                <h4>${data.first_name} ${data.last_name}</h4>
+                <p>Email: ${data.email}</p>
+                <p>Phone: ${data.phone}</p>
+            `;
+            break;
         case 'dog':
-            return `<h4>Dog Details</h4>
-                    <p>Name: ${data.name}</p>
-                    <p>Breed: ${data.breed}</p>
-                    <p>Sex: ${data.sex}</p>
-                    <p>Age: ${data.age}</p>
-                    <p>Weight: ${data.weight}</p>
-                    <p>Spay/ Neuter: ${data.spay_neuter}</p>
-                    <p>Vaccinations: ${data.vaccinations}</p>
-                    <p>Address: ${data.address}</p>`;
+            htmlContent = `
+                <h4>${data.name}</h4>
+                <p>Breed: ${data.breed}</p>
+                <p>Age: ${data.age}</p>
+                <p>Weight: ${data.weight}</p>
+            `;
+            break;
         case 'event':
-            return `<h4>Event Details</h4>
-                    <p>Event: ${data.event_type}</p>
-                    <p>Date: ${data.date}</p>`;
+            htmlContent = `
+                <h4>Scheduled event: ${format_full_date(data.date)}</h4>
+                <p>Type: ${data.event_type}</p>
+            `;
+            break;
         default:
-            return 'Not available';
+            htmlContent = '<p>No information available</p>';
     }
+    return htmlContent;
 }
+
+    
 
 function closeModal() {
     const modal = document.getElementById('userModal');
     modal.style.display = 'none';
 }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const closeButton = document.querySelector('.close-button');
-    if (closeButton) {
-        closeButton.addEventListener('click', closeModal);
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.user-name, .dog-name, .event-name').forEach(link => {
-        link.addEventListener('click', event => {
-            event.preventDefault();
-            const type = link.classList.contains('user-name') ? 'user' :
-                         link.classList.contains('dog-name') ? 'dog' :
-                         link.classList.contains('event-name') ? 'event' : 
-                         null;
-            const id = link.dataset[type + '.id'];
-            detailsModals(type, id);
-        });
-    });
-});
+function format_full_date(dateString) {
+    const date = new Date(dateString);
+    // Example formatting, adjust as needed
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+}
