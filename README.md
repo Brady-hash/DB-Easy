@@ -35,11 +35,16 @@ A user can easily schedule dates for boarding, grooming, and training. Dog Board
 
 ### Screenshots:
 
-![Screenshot of login page]()
-![Screenshot of homepage]()
-![Screenshot of Admin page]()
-![Screenshot of info page]()
-![Screenshot of schedule page]()
+![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/63ae86fd-6095-4379-99a1-8a034cbc2bbf)
+
+![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/8f5403dc-f12f-4963-bb10-e9cd2da684f0)
+
+![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/eadb6b19-8dff-4fed-8dad-b9bf20ac72f8)
+
+![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/f440c438-24cb-44aa-8bb8-b7d6e3306983)
+
+![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/15f1e7fd-f871-49e9-9a99-b44340e03cfc)
+
 
 ### Deployed Link:
 
