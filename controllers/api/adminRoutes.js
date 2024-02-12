@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth');
 const adminAuth = require('../../utils/adminAuth');
 
 // Fetch user details by ID (Admin)
-router.get('/users/:id', [withAuth, adminAuth], async (req, res) => {
+router.get('/users/:id',withAuth, adminAuth, async (req, res) => {
     try {
         const userDetails = await User.findByPk(req.params.id);
         if (!userDetails) {
@@ -18,7 +18,7 @@ router.get('/users/:id', [withAuth, adminAuth], async (req, res) => {
 });
 
 // Fetch dog details by ID (Admin)
-router.get('/dogs/:id', [withAuth, adminAuth], async (req, res) => {
+router.get('/dogs/:id',withAuth, adminAuth, async (req, res) => {
     try {
         const dogDetails = await Dog.findByPk(req.params.id);
         if (!dogDetails) {
@@ -32,7 +32,7 @@ router.get('/dogs/:id', [withAuth, adminAuth], async (req, res) => {
 });
 
 // Fetch event details by ID (Admin)
-router.get('/events/:id', [withAuth, adminAuth], async (req, res) => {
+router.get('/events/:id', withAuth, adminAuth, async (req, res) => {
     try {
         const eventDetails = await Event.findByPk(req.params.id);
         if (!eventDetails) {
