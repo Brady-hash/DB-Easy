@@ -157,10 +157,10 @@ router.get('/newdog', (req, res) => {
 // Route dog schedule
 router.get('/events', withAuth, async (req, res) => {
     try {
-        if (req.session.logged_in && req.params.role === 'user') {
-            res.render('/schedule');
+        if (req.session.logged_in) {
+            res.render('schedule');
         } else {
-            res.redirect('/login');
+            res.redirect('login');
         }
     } catch (err) {
         console.error(err);
