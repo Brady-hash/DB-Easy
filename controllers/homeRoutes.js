@@ -34,7 +34,6 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        console.log(req.body)
         const userData = await User.findOne({ where: { email: req.body.email } });
 
         if (!userData) {
@@ -43,7 +42,7 @@ router.post('/login', async (req, res) => {
                 .json({ message: 'Wrong Email' });
             return;
         }
-        console.log(req.body.password);
+
         const validPassword = await userData.checkPassword(req.body.password);
 
         if (!validPassword) {
@@ -72,23 +71,25 @@ router.post('/logout', (req, res) => {
 });
 
 //Route sign up page
-router.get('/signup', async (req, res) => {
-    res.render('signup');
+router.get('/signup', (req, res) => {
+    // If the user is already logged in, redirect based on their role
+    if (req.session.logged_in) {
+        redirectBasedOnUserType(req, res, () => { });
+    } else {
+        res.render('signup');
+    }
 });
 
 router.post('/signup', async (req, res) => {
-    console.log(req.body)
     const { first_name, last_name, email, password, phone, role } = req.body;
   
   
     try {
         // Hash password before saving to the database
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        console.log('Hashed Password signup', hashedPassword)
+        const hashedPassword = await bcrypt.hash(password);
   
         // Create new user
-        await User.create({
+        const newUser = await User.create({
             first_name,
             last_name,
             email,
