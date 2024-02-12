@@ -129,7 +129,7 @@ router.get('/', redirectBasedOnUserRole, async (req, res) => {
 //Route dog info 
 router.get('/doginfo', withAuth, async (req, res) => {
     try {
-        if (req.session.logged_in && req.session.userRole === 'user') {
+        if (req.session.logged_in && req.session.user.role === 'user') {
             const userDogsData = await Dog.findAll({
                 where: { userId: req.session.user_id },
                 include: [Event]
