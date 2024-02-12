@@ -1,56 +1,7 @@
-<h2>
+{{!-- <h2>
     <center>Scheduling</center>
 </h2>
-{{!-- <div class="container">
-    <div id="calendar"></div>
-
-    <button type="button" class="btn btn-success" id="createEventButton">Create Event</button>
-
-    <button type="button" class="btn btn-danger" id="deleteDayButton">Delete Events for Selected Day</button>
-
-    <div id="createEventModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Event</h4>
-                </div>
-                <div class="modal-body">
-
-                    <form action="'/events" method="post">
-                        <div class="form-group">
-                            <label for="eventTitle">Event Title:</label>
-
-                            <select class="form-control" id="eventTitle" required>
-                                <option value="Boarding">Boarding</option>
-                                <option value="Daycare">Daycare</option>
-                                <option value="Training">Training</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="eventTitle">Select your dog</label>
-                            <select class="form-control" id="eventTitle" required>
-                                {{#each user.dogs as |dog|}}
-                                <option value="{{dog.id}}">{{ dog.name }}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="eventDate">Date:</label>
-                            <input type="date" class="form-control" id="eventDate">
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="submitButton">Add Event</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 <div>
-    <p>{{user.first_name}}</p>
     <form action="/events" method="post">
         <div class="form-group">
             <label for="eventTitle">Event Title:</label>
@@ -78,12 +29,39 @@
         </div>
         <button type="submit">Add Event</button>
     </form>
+</div> --}}
+
+<div class="h-screen w-full flex flex-col justify-center items-center p-12 relative">
+    <a href="/" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px] absolute top-20 left-20">Go Back</a>
+    <div class="p-12 mt-12 bg-neutral-400 rounded-2xl max-w-[485px] w-full">
+
+        <form action="/events" method="post" class="flex flex-col gap-5"> 
+            <h1 class="text-center text-3xl font-bold mb-12">Schedule A New Event</h1>
+
+            <select name="event_type" id="event_type"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl"
+                required>
+                <option value="" selected disabled>Select Event Type</option>
+                <option value="Boarding">Boarding</option>
+                <option value="Daycare">Daycare</option>
+                <option value="Training">Training</option>
+            </select>
+
+            <select name="dog_id" id="dog_id"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl"
+                required>
+                <option value="" selected disabled>Select A Pooch</option>
+                {{#each user.dogs as |dog|}}
+                <option value="{{dog.id}}">{{ dog.name }}</option>
+                {{/each}}
+            </select>
+
+            <input type="date" class="mt-1 block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl" id="eventDate" name="date">
+
+            <div class="flex justify-center mt-10 items-center">
+                <button type="submit" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px]">Save</button>
+            </div>
+
+        </form>
+    </div>
 </div>
-{{!--
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="/js/Schedule.js"></script> --}}

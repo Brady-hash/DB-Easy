@@ -13,13 +13,19 @@
     <main class="max-w-[650px] w-full mx-auto flex flex-col gap-12 mt-12">
         <div class="flex flex-col gap-10">
             <h2 class="text-3xl font-bold">Schedule</h2>
-            <div class="flex sm:flex-row flex-col gap-5 justify-between items-center">
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Boarding</a>
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Training</a>
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Daycare</a>
+            <a class="text-xl font-semibold rounded-xl w-full h-[70px] bg-neutral-200 flex justify-center items-center"
+                    href="/events">Schedule New Event</a>
+            <div class="flex sm:flex-row flex-col gap-5 justify-start flex-wrap items-center">
+                {{#each user.dogs as |dog|}}
+                {{#if dog.events}}
+                <div class="flex flex-col gap-3 border rounded-xl p-5 h-[180px]">
+                    <h3 class="font-bold text-lg">{{dog.name}}</h3>
+                {{#each dog.events as |event|}}
+                    <p class=""><span class="capitalize">{{event.event_type}}</span> - {{format_date event.date}}</p>
+                {{/each}}
+                </div>
+                {{/if}}
+                {{/each}}
             </div>
         </div>
         <div class="flex flex-col gap-10">

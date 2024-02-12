@@ -1,66 +1,54 @@
-<div class="grid grid-cols-4 place-content-center">
-    <button class="go-back-btn">Go Back</button>
-    <main>
-        <h1 class="title">Add a new dog</h1>
-        <form action="/api/dog/info" method="post">
-            <section class="container">
-                <div>
-                    <div>
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" class="input-box double-size" required>
-                    </div>
-                    <div>
-                        <label for="breed">Breed:</label>
-                        <input type="text" name="breed" id="breed" class="input-box double-size" required>
-                    </div>
-                    <div>
-                        <label for="sex">Sex:</label>
-                        <input type="text" name="sex" id="sex" class="input-box double-size" required>
-                    </div>
-                    <div>
-                        <label for="spay_neuter">Spay/Neuter:</label>
-                        <select name="spay_neuter" id="spay_neuter" class="input-box double-size" required>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                </div>
+<div class="h-screen w-full flex flex-col justify-center items-center p-12 relative">
+    <a href="/" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px] absolute top-20 left-20">Go Back</a>
+    <div class="p-12 mt-12 bg-neutral-400 rounded-2xl max-w-[485px] w-full">
 
-                <div>
-                    <div>
-                        <label for="age">Age:</label>
-                        <input type="text" name="age" id="age" class="input-box double-size" required>
-                    </div>
-                    <div>
-                        <label for="weight">Weight:</label>
-                        <input type="text" name="weight" id="weight" class="input-box double-size" required>
-                    </div>
-                    <div>
-                        <label for="vet-name">Vet Name:</label>
-                        <input type="text" name="vet-name" id="vet-name" class="text-xl border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" required>
-                    </div>
-                    <div class="row">
-                        <label for="phone-number">Phone Number:</label>
-                        <input type="text" name="phone-number" id="phone-number" class="input-box double-size" required>
-                    </div>
-                </div>
-            </section>
+        <form action="/api/dog/info" method="post" class="flex flex-col gap-5"> 
+            <h1 class="text-center text-3xl font-bold mb-12">Add a new Dog</h1>
 
-            <section class="container">
-                <div class="row">
-                    <label for="vaccinations">Vaccinations:</label>
-                    <select name="vaccinations" id="vaccinations" class="input-box double-size" required>
-                        <option value="vaccine1">All Necessary Vaccines</option>
-                        <option value="vaccine2">Puppy Only Vaccines</option>
-                        <!-- Add more vaccine options as needed -->
-                    </select>
-                </div>
-                <div class="row">
-                    <label for="address">Address:</label>
-                    <input type="text" name="address" id="address" class="input-box double-size" required>
-                </div>
-            </section>
-            <button type="submit" class="save-btn">Save</button>
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="name"
+                name="name" placeholder="Name" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="breed"
+                name="breed" placeholder="Breed" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="sex"
+                name="sex" placeholder="Gender" required>
+
+            <select name="spay_neuter" id="spay_neuter"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl"
+                required>
+                <option value="" selected disabled>Spayed / Neutered?</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="age"
+                name="age" placeholder="Age" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="weight"
+                name="weight" placeholder="Weight" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="vet-name"
+                name="vet-name" placeholder="Vet Name" required>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="phone" id="phone-number"
+                name="phone-number" placeholder="Phone Number" required>
+
+            <select name="vaccinations" id="vaccinations"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-neutral-200 sm:text-sm rounded-xl"
+                required>
+                <option value="" selected disabled>Vaccinations</option>
+                <option value="vaccine1">All Necessary Vaccines</option>
+                <option value="vaccine2">Puppy Only Vaccines</option>
+            </select>
+
+            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="text" id="address"
+                name="address" placeholder="Address" required>
+
+            <div class="flex justify-center mt-10 items-center">
+                <button type="submit" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px]">Save</button>
+            </div>
+
         </form>
-    </main>
+    </div>
 </div>
