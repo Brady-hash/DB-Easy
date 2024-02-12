@@ -21,8 +21,8 @@ const redirectBasedOnUserRole = async (req, res, next) => {
             console.error('Error fetching user:', error);
             res.status(500).json({ message: 'Error fetching user' });
         }
-    } else {
-        res.redirect('/login');
+    // } else {
+    //     res.redirect('/login');
     }
 };
 
