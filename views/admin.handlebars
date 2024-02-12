@@ -1,36 +1,54 @@
-<div>
-        <form action="/logout" method="post">
-            <button class="main-button" type="submit">Logout</button>
-        </form>
-    </div>
-<div id="user-list" class="space-y-4">
-    {{#each users}}
-    <!-- User Information -->
-    <div class="mb-4">
-        <a href="#" class="user-name block font-bold mb-2" data-user-id="{{id}}" onclick="detailsModals('user', {{id}})">{{first_name}} {{last_name}}</a>
-        {{#each dogs}}
-        <!-- Dog Information and Event Dates -->
-        <div class="flex items-center ml-4">
-            <a href="#" class="dog-name underline mr-2" data-dog-id="{{id}}" onclick="detailsModals('dog', {{id}})">{{name}}</a>
-            {{#each events}}
-            <!-- Event Dates -->
-            <div class="flex items-center ml-4"> 
-                <a href="#" class="event-name" data-event-id="{{id}}" onclick="detailsModals('event', {{id}})">{{format_full_date date}}
+<div class="m-5">
+    <nav class="rounded-xl p-5 bg-neutral-500 flex justify-between items-center shadow-md">
+        <h1 class="text-white font-bold text-xl">Admin Dash</h1>
+        <div class="flex gap-5">
+            <p class="sm:block hidden rounded-lg p-3 text-center text-black bg-neutral-300 font-semibold">Hello,
+                {{admin.first_name}}!</p>
+            <form action="/logout" method="post">
+                <button class="rounded-lg p-3 text-center text-black bg-neutral-300 font-semibold"
+                    type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+    <main class="max-w-[650px] w-full mx-auto flex flex-col gap-12 mt-12">
+        <div id="user-list" class="space-y-4">
+            {{#each users}}
+            <!-- User Information -->
+            <div class="flex flex-col gap-3 border rounded-xl p-5">
+                <a href="#" class="user-name block font-bold mb-2" data-user-id="{{id}}"
+                    onclick="detailsModals('user', {{id}})">{{first_name}} {{last_name}}</a>
+                {{#each dogs}}
+                <!-- Dog Information and Event Dates -->
+                <div class="flex items-center ml-4">
+                    <a href="#" class="dog-name underline mr-2" data-dog-id="{{id}}"
+                        onclick="detailsModals('dog', {{id}})">{{name}}</a>
+                    {{#each events}}
+                    <!-- Event Types -->
+                    <div class="flex items-center ml-4">
+                        <a href="#" class="event-name" data-event-id="{{id}}" onclick="detailsModals('event', {{id}})">
+                            <p class="capitalize">{{event_type}}</p>
+                            </a>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
             </div>
             {{/each}}
         </div>
-        {{/each}}
-    </div>
-    {{/each}}
-</div>
 
-<!-- Modal -->
-    <div id="userModal" class="modal hidden fixed z-10 inset-0 overflow-y-auto" style="background-color: rgba(0,0,0,0.5);">
-        <div class="modal-content p-4 w-full max-w-lg mx-auto mt-10 bg-white rounded-lg shadow">
-            <span class="close-button absolute top-0 right-0 p-4 cursor-pointer" onclick="closeModal()">&times;</span>
+        <!-- Modal -->
+        <div id="userModal" class="modal hidden fixed z-20 inset-0 overflow-y-auto"
+            style="background-color: rgba(0,0,0,0.5);">
+
+            <div class="modal-content p-4 w-full max-w-lg mx-auto mt-10 bg-white rounded-lg shadow relative">
+                <span class="close-button absolute top-0 right-0 p-4 cursor-pointer text-2xl font-black z-[999]"
+                    onclick="closeModal()">&times;</span>
                 <div class="modal-body">
-            <!-- Modal content will be dynamically loaded here -->
+                    <!-- Modal content will be dynamically loaded here -->
+                </div>
             </div>
+
         </div>
-    </div>
+    </main>
+</div>
 <script src="/js/admin.js"></script>

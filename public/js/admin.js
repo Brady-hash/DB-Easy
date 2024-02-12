@@ -87,12 +87,13 @@ function generateModalContent(type, data) {
                 <p>Breed: ${data.breed}</p>
                 <p>Age: ${data.age}</p>
                 <p>Weight: ${data.weight}</p>
+                <p>Sex: ${data.sex}</p>
             `;
             break;
         case 'event':
             htmlContent = `
                 <h4>Scheduled event: ${format_full_date(data.date)}</h4>
-                <p>Type: ${data.event_type}</p>
+                <p class="capitalize">Type: ${data.event_type}</p>
             `;
             break;
         default:
@@ -105,6 +106,7 @@ function generateModalContent(type, data) {
 
 function closeModal() {
     const modal = document.getElementById('userModal');
+    //debugger;
     modal.style.display = 'none';
 }
 

@@ -45,6 +45,7 @@ router.post('/login', async (req, res) => {
         }
         console.log(req.body.password);
         const validPassword = await userData.checkPassword(req.body.password);
+        console.log(validPassword);
 
         if (!validPassword) {
             res
@@ -55,7 +56,14 @@ router.post('/login', async (req, res) => {
         req.session.user_role = userData.role;
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-        res.redirect('/')
+        if (req.session.user_role === 'admin') {
+            res.redirect('/admin');
+        } else if (req.session.user_role === 'user') {
+            res.redirect('/')
+        } else {
+            res.redirect('/login')
+        }
+        
     } catch (err) {
         res.status(400).json(err);
     }
@@ -105,7 +113,7 @@ router.post('/signup', async (req, res) => {
   });
 
 // Route to display user homepage or redirect to login if not authenticated
-router.get('/', redirectBasedOnUserRole, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         if (req.session.logged_in) {
             const userData = await User.findByPk(req.session.user_id , {
@@ -115,6 +123,7 @@ router.get('/', redirectBasedOnUserRole, async (req, res) => {
                 // Serialize data for the template
                 const user = userData.get({ plain: true });
                 console.log(user);
+                
                 res.render('homepage', { user });
             }
         } else {
@@ -179,22 +188,17 @@ router.get('/events', async (req, res) => {
 
 router.post('/events', withAuth, async (req, res) => {
     const { event_type, date, dog_id } = req.body;
-
-    //Validate
-    if (!event_type || !date || dog_id) {
-        return res.status(400).json({ error: 'All fields are required' });
-    }
+    console.log(req.body)
 
     try {
         //Create new event
-        const newEvent = await Event.create({
+        await Event.create({
             event_type,
             date,
             dog_id,
         });
 
-        // send new event data
-        res.status(201).json(newEvent);
+        res.redirect('/')
     } catch (error) {
         console.error('Error creating new event', error);
 
@@ -209,13 +213,19 @@ router.get('/admin', withAuth, async (req, res) => {
     console.log(req.session);
     if (req.session.user_role === 'admin') {
         try {
-            const userData = await User.findAll({
+            const usersData = await User.findAll({
                 include: [{ model: Dog, include: [Event] }]
             });
 
-            const users = userData.map(user => user.get({ plain: true }));
-            console.log(users);
-            res.render('admin', { users: users });
+            const adminData = await User.findByPk(req.session.user_id , {
+                include: [{ model: Dog, include: [Event] }]
+            });
+
+            const users = usersData.map(user => user.get({ plain: true }));
+
+            const admin = adminData.get({ plain: true });
+            
+            res.render('admin', { users: users, admin: admin });
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: 'Error fetching data' });
