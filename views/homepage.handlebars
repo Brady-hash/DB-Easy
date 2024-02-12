@@ -1,45 +1,41 @@
-<div class="m-5">
-    <nav class="rounded-xl p-5 bg-neutral-500 flex justify-between items-center shadow-md">
-        <h1 class="text-white font-bold text-xl">Client Dash</h1>
-        <div class="flex gap-5">
-            <p class="sm:block hidden rounded-lg p-3 text-center text-black bg-neutral-300 font-semibold">Hello,
-                {{user.first_name}}!</p>
-            <form action="/logout" method="post">
-                <button class="rounded-lg p-3 text-center text-black bg-neutral-300 font-semibold"
-                    type="submit">Logout</button>
-            </form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./public/css/homepage.css" />
+    <title>Homepage Handlebars</title>
+</head>
+
+<body>
+
+    <nav>
+        <h1>Client Dash</h1>
+        <div>
+            <button class="main-button">Welcome {{clientName}}</button>
+            <button class="main-button">Log Out</button>
         </div>
     </nav>
-    <main class="max-w-[650px] w-full mx-auto flex flex-col gap-12 mt-12">
-        <div class="flex flex-col gap-10">
-            <h2 class="text-3xl font-bold">Schedule</h2>
-            <div class="flex sm:flex-row flex-col gap-5 justify-between items-center">
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Boarding</a>
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Training</a>
-                <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="/events">Daycare</a>
-            </div>
-        </div>
-        <div class="flex flex-col gap-10">
-            <h2 class="text-3xl font-bold">My Dogs</h2>
-            <div class="flex flex-col gap-5 justify-between items-center">
-                {{#each user.dogs as |dog|}}
-                <button class="rounded-xl p-3 bg-neutral-200 flex justify-start gap-10 items-center w-full">
-                    <img src="https://www.southernliving.com/thmb/WHH7cdFT3YMJlJN4y7y3lsAKvJ8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/gettyimages-114166947-1-268128f97e5c415baede328c1fe32f55.jpg"
-                        alt="" class="max-w-[180px] w-full max-h-[110px] h-full object-cover rounded-lg" />
-                    <span class="text-4xl font-bold text-black">{{ dog.name }}</span>
-                </button>
-                {{/each}}
 
-                <a href="/newdog" class="rounded-xl p-3 bg-neutral-200 flex justify-start gap-10 items-center w-full">
-                    <img src="https://png.pngtree.com/png-vector/20190214/ourmid/pngtree-vector-plus-icon-png-image_515260.jpg"
-                        alt="" class="h-[110px] aspect-square object-cover rounded-lg" />
-                    <span class="text-4xl font-bold text-black">Add a new dog</span>
-                </a>
+    <div class="container">
+        <h1>Schedule</h1>
 
-            </div>
+        <div class="buttons-container">
+            <button class="main-button">Boarding</button>
+            <button class="main-button">Training</button>
+            <button class="main-button">Daycare</button>
         </div>
-    </main>
-</div>
+
+        <h2>My Dogs</h2>
+
+        <button id="addDogButton" class="add-dog-button">Add new dog</button>
+
+        <div id="dogContainer"></div>
+    </div>
+
+    <script src="./public/js/homepage.js"></script>
+
+</body>
+
+</html>

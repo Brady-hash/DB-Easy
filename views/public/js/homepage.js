@@ -53,4 +53,4 @@ function createDogButton(dogName, imageUrl) {
     });
 
     return dogButton;
-};
+}

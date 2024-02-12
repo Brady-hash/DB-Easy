@@ -35,6 +35,9 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                max: [10]
+            },
         },
         phone: {
             type: DataTypes.BIGINT, //BIGINT for larger numbers
@@ -43,16 +46,14 @@ User.init(
                 len: [10, 11]
             },
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'user',
-            validate: {
-                isIn: [['admin', 'user']],
-            }
-        }
     },
     {
+        // hooks: {
+        //     beforeCreate: async (newUserPw) => {
+        //         newUser.password = await bcrypt.hash(newUser.password, 10);
+        //         return newUserPw;
+        //     },
+        // },   
         sequelize,
         timestamps: false,
         freezeTableName: true,

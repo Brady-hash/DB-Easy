@@ -1,25 +1,37 @@
-<div class="bg-[#D59F97] h-screen w-full flex flex-col justify-center items-center p-12">
-    <img src="https://www.shutterstock.com/image-vector/dog-logo-icon-design-vector-600nw-1459335044.jpg" alt="Logo" class="rounded-full w-[100px] aspect-square bg-white" />
-    <div class="p-12 mt-12 bg-[#97CDD4] rounded-2xl max-w-[485px] w-full">
-       
-        <form method="post" action="/login" class="flex flex-col gap-5"> 
-            <h1 class="text-center text-3xl font-bold mb-12">Login</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="email" id="email" name="email" placeholder="Email" required>
-        
-            <input class="border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" type="password" id="password" name="password" placeholder="Password" required>
-         
-            <div class="flex justify-between mt-10 items-center">
-                <a href="/signup" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px]">Sign Up</a>
-                <span >or</span>
-                <button type="submit" class="rounded-xl p-3 bg-neutral-200 text-black w-[82px]">Login</button>
-            </div>
-          
-        </form>
-      </div>
-</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./public/css/style.css" />
+  <title>Login</title>
+</head>
+
+<body>
+
+  <div class="logo-placeholder">DB EZ Logo</div>
   
+  <div class="container">
+    <h2>Login</h2>
 
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
 
+    <div class="input-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
 
+    <div class="button-group">
+      <button class="signup-button" type="submit">Sign Up</button>
+      <span class="or">or</span>
+      <button class="signup-button login-button" type="submit">Login</button>
+    </div>
+  </div>
 
+</body>
+
+</html>
