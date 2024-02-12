@@ -2,12 +2,12 @@ const router = require('express').Router();
 const { Event } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.post('/events',withAuth, async (req, res) => {
+router.post('/events', withAuth, async (req, res) => {
     const { event_type, date, dog_id } = req.body;
 
     //Validate
     if (!event_type || !date || dog_id) {
-        return res.status(400).json({error: 'All fields are required'});
+        return res.status(400).json({ error: 'All fields are required' });
     }
 
     try {
@@ -24,7 +24,7 @@ router.post('/events',withAuth, async (req, res) => {
         console.error('Error creating new event', error);
 
         //Handle errors
-        res.status(500).json({ error:  'An error occurred while creating the event. Please try again.'})
+        res.status(500).json({ error: 'An error occurred while creating the event. Please try again.' })
     }
 
 });
@@ -39,7 +39,7 @@ router.get('/events/:id', withAuth, async (req, res) => {
                 where: { user_id: req.session.userId },
             }]
         });
-        
+
         // If no event is found or it doesn't belong to the user's dog, return a 404 error
         if (!eventDetails) {
             return res.status(404).json({ message: 'Event not found' });
@@ -52,9 +52,5 @@ router.get('/events/:id', withAuth, async (req, res) => {
     }
 });
 
-router.get('/events', (req, res) => {
-    res.render('schedule')
-}
-)
 
 module.exports = router;

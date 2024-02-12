@@ -107,7 +107,6 @@ router.post('/signup', async (req, res) => {
 // Route to display user homepage or redirect to login if not authenticated
 router.get('/', redirectBasedOnUserRole, async (req, res) => {
     try {
-        console.log(req.session);
         if (req.session.logged_in) {
             const userData = await User.findByPk(req.session.user_id , {
                 include: [{ model: Dog, include: [Event] }]
@@ -155,17 +154,54 @@ router.get('/newdog', (req, res) => {
 
 
 // Route dog schedule
-router.get('/events', withAuth, async (req, res) => {
+router.get('/events', async (req, res) => {
     try {
         if (req.session.logged_in) {
-            res.render('schedule');
+            const userData = await User.findByPk(req.session.user_id, {
+                include: [{ model: Dog, include: [Event] }]
+            });
+            if (userData) {
+                // Serialize data for the template
+                const user = userData.get({ plain: true });
+                console.log(user);
+                res.render('schedule', { user });
+            }
         } else {
-            res.redirect('login');
+            res.redirect('/');
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Error rendering the schedule page.' });
+        res.status(500).json(err);
     }
+
+}
+)
+
+router.post('/events', withAuth, async (req, res) => {
+    const { event_type, date, dog_id } = req.body;
+
+    //Validate
+    if (!event_type || !date || dog_id) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    try {
+        //Create new event
+        const newEvent = await Event.create({
+            event_type,
+            date,
+            dog_id,
+        });
+
+        // send new event data
+        res.status(201).json(newEvent);
+    } catch (error) {
+        console.error('Error creating new event', error);
+
+        //Handle errors
+        res.status(500).json({ error: 'An error occurred while creating the event. Please try again.' })
+    }
+
 });
 
 // Admin homepage route
