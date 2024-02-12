@@ -4,14 +4,16 @@
         "last_name": "Davis",
         "email": "demo1@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Joseph",
         "last_name": "Padilla",
         "email": "demo2@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "admin"
 
     },
     {
@@ -19,56 +21,64 @@
         "last_name": "Holder",
         "email": "demo3@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Andrue",
         "last_name": "Desmarias",
         "email": "demo4@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "John",
         "last_name": "Doe",
         "email": "demo5@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Jacob",
         "last_name": "Dalton",
         "email": "demo6@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Heather",
         "last_name": "Nane",
         "email": "demo7@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Pope",
         "last_name": "Francis",
         "email": "demo8@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Kermit",
         "last_name": "Frog",
         "email": "demo9@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
     },
     {
         "first_name": "Sonic",
         "last_name": "H",
         "email": "demo10@gmail.com",
         "password":"12345678",
-        "phone":"8653078498"
+        "phone":"8653078498",
+        "role": "user"
 
     }
 ]

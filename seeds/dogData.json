@@ -2,6 +2,7 @@
     {
         "name": "Levi",
         "breed": "Husky",
+        "sex": "Male",
         "age": "9",
         "weight": "70",
         "spay_neuter": true,
@@ -13,6 +14,7 @@
     {
         "name": "Goose",
         "breed": "German Shepard",
+        "sex": "Male",
         "age": "5",
         "weight": "125",
         "spay_neuter": true,
@@ -24,6 +26,7 @@
     {
         "name": "Butter",
         "breed": "Golden retreiver",
+        "sex": "Male",
         "age": "2",
         "weight": "60",
         "spay_neuter": true,
@@ -35,6 +38,7 @@
     {
         "name": "Mark",
         "breed": "Lab",
+        "sex": "Male",
         "age": "5",
         "weight": "80",
         "spay_neuter": true,
@@ -46,6 +50,7 @@
     {
         "name": "Lola",
         "breed": "chiuahuah",
+        "sex": "Male",
         "age": "3",
         "weight": "10",
         "spay_neuter": true,
@@ -57,6 +62,7 @@
     {
         "name": "Ninja",
         "breed": "pug",
+        "sex": "Male",
         "age": "6",
         "weight": "5",
         "spay_neuter": true,
@@ -68,6 +74,7 @@
     {
         "name": "Doge",
         "breed": "pug",
+        "sex": "Male",
         "age": "7",
         "weight": "5",
         "spay_neuter": true,
@@ -79,6 +86,7 @@
     {
         "name": "Billy",
         "breed": "pug",
+        "sex": "Male",
         "age": "8",
         "weight": "6",
         "spay_neuter": true,
@@ -90,6 +98,7 @@
     {
         "name": "Ruca",
         "breed": "pug",
+        "sex": "Female",
         "age": "6",
         "weight": "6",
         "spay_neuter": true,
@@ -101,6 +110,7 @@
     {
         "name": "Betty",
         "breed": "pug",
+        "sex": "Female",
         "age": "4",
         "weight": "8",
         "spay_neuter": true,
@@ -112,6 +122,7 @@
     {
         "name": "Bobby",
         "breed": "pug",
+        "sex": "Female",
         "age": "6",
         "weight": "8",
         "spay_neuter": true,
@@ -123,6 +134,7 @@
     {
         "name": "Bruno",
         "breed": "pug",
+        "sex": "Female",
         "age": "7",
         "weight": "8",
         "spay_neuter": true,
@@ -134,6 +146,7 @@
     {
         "name": "Wilma",
         "breed": "pug",
+        "sex": "Female",
         "age": "10",
         "weight": "8",
         "spay_neuter": true,
@@ -145,6 +158,7 @@
     {
         "name": "Taylor",
         "breed": "pug",
+        "sex": "Female",
         "age": "6",
         "weight": "8",
         "spay_neuter": true,
@@ -156,6 +170,7 @@
     {
         "name": "Texas",
         "breed": "pug",
+        "sex": "Female",
         "age": "8",
         "weight": "7",
         "spay_neuter": true,
@@ -167,6 +182,7 @@
     {
         "name": "Bean",
         "breed": "pug",
+        "sex": "Female",
         "age": "3",
         "weight": "8",
         "spay_neuter": true,
