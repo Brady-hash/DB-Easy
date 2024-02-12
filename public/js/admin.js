@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Close modal event listener
+    // Close modal
     const closeButton = document.querySelector('.close-button');
     if (closeButton) {
         closeButton.addEventListener('click', closeModal);
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          link.classList.contains('dog-name') ? 'dog' :
                          link.classList.contains('event-name') ? 'event' : 
                          null;
-            // Correctly extract the ID for the clicked entity
+            // Correctly extract the ID for the clicked link
             const id = link.dataset.userId || link.dataset.dogId || link.dataset.eventId;
             detailsModals(type, id);
         });
@@ -39,12 +39,11 @@ function detailsModals(type, id) {
     }
 
     fetch(url, {
-        method: 'GET', // Explicitly stating the method, though 'GET' is default
+        method: 'GET', 
         headers: {
-            // 'Content-Type': 'application/json', // Generally not needed for GET, but here if your server checks for it
-            // Include other headers your API requires, e.g., Authorization for token-based auth
+            
         },
-        credentials: 'include', // Important for including cookies in cross-origin requests
+        credentials: 'include', 
     })
     .then(response => {
         if (!response.ok) {
@@ -57,17 +56,17 @@ function detailsModals(type, id) {
         const modalBody = modal.querySelector('.modal-body');
 
         // Populate modal based on type
-        modalBody.innerHTML = generateModalContent(type, data); // Ensure generateModalContent is properly defined to handle your data structure
+        modalBody.innerHTML = generateModalContent(type, data); 
 
         // Show the modal
         modal.style.display = 'block';
     })
     .catch(error => {
         console.error('Error fetching details:', error);
-        // Optionally, update the modal or another element to display the error to the user
+
         const modalBody = document.getElementById('userModal').querySelector('.modal-body');
-        modalBody.innerHTML = `<p>Error fetching details: ${error.message}</p>`; // Providing user feedback on error
-        document.getElementById('userModal').style.display = 'block'; // Show the modal even on error to display the error message
+        modalBody.innerHTML = `<p>Error fetching details: ${error.message}</p>`;
+        document.getElementById('userModal').style.display = 'block'; 
     });
 }
 
@@ -111,6 +110,5 @@ function closeModal() {
 
 function format_full_date(dateString) {
     const date = new Date(dateString);
-    // Example formatting, adjust as needed
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
