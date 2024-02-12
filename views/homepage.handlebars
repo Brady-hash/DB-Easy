@@ -15,11 +15,11 @@
             <h2 class="text-3xl font-bold">Schedule</h2>
             <div class="flex sm:flex-row flex-col gap-5 justify-between items-center">
                 <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="http://">Boarding</a>
+                    href="/events">Boarding</a>
                 <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="http://">Training</a>
+                    href="/events">Training</a>
                 <a class="text-xl font-semibold rounded-xl w-[200px] h-[110px] bg-neutral-200 flex justify-center items-center"
-                    href="http://">Daycare</a>
+                    href="/events">Daycare</a>
             </div>
         </div>
         <div class="flex flex-col gap-10">
@@ -43,34 +43,3 @@
         </div>
     </main>
 </div>
-
-
-{{!-- <nav>
-    <h1>Client Dash</h1>
-    <div>
-        <button class="main-button">Welcome {{ user.first_name }}</button>
-        <form action="/logout" method="post">
-            <button class="main-button" type="submit">Logout</button>
-        </form>
-    </div>
-</nav>
-<div class="container">
-    <h1>Schedule</h1>
-
-    <div class="buttons-container">
-        <a href="/api/event/events" class="main-button">Boarding</a>
-        <button class="main-button">Training</button>
-        <button class="main-button">Daycare</button>
-    </div>
-
-    <h2>My Dogs</h2>
-    {{#each user.dogs as |dog|}}
-    <p>{{dog.name}}</p>
-    {{/each}}
-    <a href="/newdog" id="addDogButton" class="add-dog-button">Add new dog</a>
-    <div id="dogContainer">
-        {{#each user.dogs}}
-        <p>{{this.name}} - {{this.breed}}</p>
-        {{/each}}
-    </div>
-</div> --}}

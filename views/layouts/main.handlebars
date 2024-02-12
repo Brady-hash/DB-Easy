@@ -10,16 +10,6 @@
 </head>
 
 <body>
-    {{#if logged_in}}
-    <nav>
-        
-        <h1>Client Dash</h1>
-        <div>
-            <button class="main-button">Welcome {{user.first_name}}</button>
-            <button class="main-button">Log Out</button>
-        </div>
-    </nav>
-    {{/if}}
     <div class="flex-column justify-space-around">
     <main>
             {{{body}}}
@@ -28,10 +18,6 @@
 
     </footer>
     </div>
-    {{#if logged_in}}
-    <script src="/js/logout.js"></script>
-    <script src="./public/js/Schedule.js"></script>
-    {{/if}}
   
 </body>
 </html>

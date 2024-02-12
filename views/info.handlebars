@@ -1,23 +1,23 @@
-<div>
+<div class="grid grid-cols-4 place-content-center">
     <button class="go-back-btn">Go Back</button>
     <main>
         <h1 class="title">Add a new dog</h1>
         <form action="/api/dog/info" method="post">
             <section class="container">
-                <div class="column">
-                    <div class="row">
+                <div>
+                    <div>
                         <label for="name">Name:</label>
                         <input type="text" name="name" id="name" class="input-box double-size" required>
                     </div>
-                    <div class="row">
+                    <div>
                         <label for="breed">Breed:</label>
                         <input type="text" name="breed" id="breed" class="input-box double-size" required>
                     </div>
-                    <div class="row">
+                    <div>
                         <label for="sex">Sex:</label>
                         <input type="text" name="sex" id="sex" class="input-box double-size" required>
                     </div>
-                    <div class="row">
+                    <div>
                         <label for="spay_neuter">Spay/Neuter:</label>
                         <select name="spay_neuter" id="spay_neuter" class="input-box double-size" required>
                             <option value="yes">Yes</option>
@@ -26,18 +26,18 @@
                     </div>
                 </div>
 
-                <div class="column">
-                    <div class="row">
+                <div>
+                    <div>
                         <label for="age">Age:</label>
                         <input type="text" name="age" id="age" class="input-box double-size" required>
                     </div>
-                    <div class="row">
+                    <div>
                         <label for="weight">Weight:</label>
                         <input type="text" name="weight" id="weight" class="input-box double-size" required>
                     </div>
-                    <div class="row">
+                    <div>
                         <label for="vet-name">Vet Name:</label>
-                        <input type="text" name="vet-name" id="vet-name" class="input-box double-size" required>
+                        <input type="text" name="vet-name" id="vet-name" class="text-xl border rounded-xl p-2 bg-neutral-200 placeholder:text-neutral-400" required>
                     </div>
                     <div class="row">
                         <label for="phone-number">Phone Number:</label>
@@ -50,8 +50,8 @@
                 <div class="row">
                     <label for="vaccinations">Vaccinations:</label>
                     <select name="vaccinations" id="vaccinations" class="input-box double-size" required>
-                        <option value="vaccine1">Vaccine 1</option>
-                        <option value="vaccine2">Vaccine 2</option>
+                        <option value="vaccine1">All Necessary Vaccines</option>
+                        <option value="vaccine2">Puppy Only Vaccines</option>
                         <!-- Add more vaccine options as needed -->
                     </select>
                 </div>

@@ -1,6 +1,7 @@
-<h2><center>Scheduling</center></h2>
-<form action="'/events" method="get">
-<div class="container">
+<h2>
+    <center>Scheduling</center>
+</h2>
+{{!-- <div class="container">
     <div id="calendar"></div>
 
     <button type="button" class="btn btn-success" id="createEventButton">Create Event</button>
@@ -15,19 +16,28 @@
                     <h4 class="modal-title">Add Event</h4>
                 </div>
                 <div class="modal-body">
-                   
-                    <form id="eventForm">
+
+                    <form action="'/events" method="post">
                         <div class="form-group">
                             <label for="eventTitle">Event Title:</label>
-                            
+
                             <select class="form-control" id="eventTitle" required>
                                 <option value="Boarding">Boarding</option>
                                 <option value="Daycare">Daycare</option>
                                 <option value="Training">Training</option>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <select class="form-control" id="eventDate" required>
+                            <label for="eventTitle">Select your dog</label>
+                            <select class="form-control" id="eventTitle" required>
+                                {{#each user.dogs as |dog|}}
+                                <option value="{{dog.id}}">{{ dog.name }}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="eventDate">Date:</label>
                             <input type="date" class="form-control" id="eventDate">
                             </select>
@@ -38,12 +48,42 @@
             </div>
         </div>
     </div>
+</div> --}}
+<div>
+    <p>{{user.first_name}}</p>
+    <form action="/events" method="post">
+        <div class="form-group">
+            <label for="eventTitle">Event Title:</label>
+
+            <select class="form-control" id="eventTitle" name="event_type" required>
+                <option value="Boarding">Boarding</option>
+                <option value="Daycare">Daycare</option>
+                <option value="Training">Training</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="eventTitle">Select your dog</label>
+            <select class="form-control" id="eventTitle" name="dog_id" required>
+                {{#each user.dogs as |dog|}}
+                <option value="{{dog.id}}">{{ dog.name }}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="eventDate">Date:</label>
+            <input type="date" class="form-control" id="eventDate" name="date">
+            </select>
+        </div>
+        <button type="submit">Add Event</button>
+    </form>
 </div>
-</form>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="./public/js/Schedule.js"></script>
+{{!--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="/js/Schedule.js"></script> --}}
