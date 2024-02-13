@@ -46,7 +46,7 @@ A user can easily schedule dates for boarding, grooming, and training. Dog Board
 ![image](https://github.com/Brady-hash/DB-Easy/assets/147120878/15f1e7fd-f871-49e9-9a99-b44340e03cfc)
 
 
-### Deployed Link:
+### Deployed Link: https://dog-boarding-made-easy-e9bece2e7102.herokuapp.com/login
 
 
 
